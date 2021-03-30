@@ -1,15 +1,15 @@
 version: "3"
 services:
 
-  # frontend:
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: ./frontend-service
-  #   ports:
-  #     - 3000:80
-  #   depends_on: 
-  #     - backend
-  #     - auth-service
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend-service
+    ports:
+      - 3000:80
+    depends_on: 
+      - backend
+      - auth-service
 
   some-postgres:
     image: postgres
@@ -34,26 +34,26 @@ services:
     ports:
       - 6000:6379
 
-  # auth-service:
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: ./auth-service
-  #   entrypoint: ["/bin/sh", "./entrypoint.sh"]
-  #   ports:
-  #     - 7000:7000
-  #   depends_on:
-  #     - redis
-  #     - some-postgres
-  #   env_file:
-  #     - ./auth-service/.env
+  auth-service:
+    build:
+      dockerfile: Dockerfile
+      context: ./auth-service
+    entrypoint: ["/bin/sh", "./entrypoint.sh"]
+    ports:
+      - 7000:7000
+    depends_on:
+      - redis
+      - some-postgres
+    env_file:
+      - ./auth-service/.env
 
-  # backend:
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: ./backend-service
-  #   entrypoint: ["/bin/sh", "./entrypoint.sh"]
-  #   ports:
-  #     - 1337:1337
-  #   depends_on:
-  #     - auth-service
-  #     - be-postgres
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: ./backend-service
+    entrypoint: ["/bin/sh", "./entrypoint.sh"]
+    ports:
+      - 1337:1337
+    depends_on:
+      - auth-service
+      - be-postgres
